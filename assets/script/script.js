@@ -1,26 +1,31 @@
 //Array productos
 const productos = [
-    {
+    {   
+        id:"1",
         nombre: "Leche",
         precio: 1000,
     
     },
     {
+        id:"2",
         nombre: "Pan de molde",
         precio: 2000,
     
     },
     {
+        id:"3",
         nombre: "Queso",
         precio: 1200,
     
     },
     {
+        id:"4",
         nombre: "Mermelada",
         precio: 890,
     
     },
     {
+        id:"5",
         nombre: "Azúcar",
         precio: 1300,
     
@@ -41,36 +46,51 @@ alert("Productos disponible:"+ "\n"+mensaje);
 
 let menuCompra = prompt("Ingresa el numero del producto que deseas agregar al carrito.");
 
+// let product = productos.map((item)=>{
+//     let newItem = item.nombre
+//     let price = item.precio
+//     return {newItem, price}
+// });
+// console.log(product)
+
+
 
 //seleccion de unidades a comprar
 switch(menuCompra){
     case"1":
-        
-        var unidad = parseInt(prompt("Ingresa la cantidad de unidades:"));
-        carrito.push({nombre: "leche",unidades: unidad,subtotal:1000*unidad},);
+        addProductcart("1");
         break;
     case"2":
-        var unidad = parseInt(prompt("Ingresa la cantidad de unidades:"));
-        carrito.push({nombre: "Pan de molde", unidades: unidad,subtotal:2000*unidad},);
+        addProductcart("2");
         break;
     case"3":
-        var unidad = parseInt(prompt("Ingresa la cantidad de unidades:"));
-        carrito.push({nombre: "Queso", unidades: unidad,subtotal:1200* unidad},);
+        addProductcart("3");
         break;
     case"4":
-        var unidad = parseInt(prompt("Ingresa la cantidad de unidades:"));
-        carrito.push({nombre: "Mermelada",unidades: unidad,subtotal:890* unidad},);
+        addProductcart("4");
         break;
     case"5":
-        var unidad = parseInt(prompt("Ingresa la cantidad de unidades:"));
-        carrito.push({nombre: "Azúcar",unidades: unidad,subtotal:1300*unidad},);
+        addProductcart("5");
         break;
     default:
         alert("Numero incorrecto, por favor selecciona un producto disponible");
         comprando();
         break; 
+};
 
+function addProductcart (id){
+    var unidad = parseInt(prompt("Ingresa la cantidad de unidades:"));
+    const producto = productos.find((item)=>{
+        return item.id == id
+    });
+    producto.unidades = unidad;
+    producto.subtotal = producto.precio*unidad;
+
+    carrito.push(producto);
 }
+
+
+
 };
 
 comprando();
@@ -85,6 +105,8 @@ function chart (){
         mensaje2 += carrito[j].unidades+" "+carrito[j].nombre+"(s)"+" "+"agregados al carrito"+"\n";
         subTotal += carrito[j].subtotal;
 }
+
+
 
 alert(mensaje2+"\n"+"Total Carrito:"+" "+"$"+subTotal);
 
@@ -117,3 +139,5 @@ function seguir(){
 
 }
 seguir();
+
+alert("Muchas Gracias por su compra, vuelva pronto");
