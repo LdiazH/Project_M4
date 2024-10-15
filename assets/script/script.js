@@ -46,14 +46,6 @@ alert("Productos disponible:"+ "\n"+mensaje);
 
 let menuCompra = prompt("Ingresa el numero del producto que deseas agregar al carrito.");
 
-// let product = productos.map((item)=>{
-//     let newItem = item.nombre
-//     let price = item.precio
-//     return {newItem, price}
-// });
-// console.log(product)
-
-
 
 //seleccion de unidades a comprar
 switch(menuCompra){
@@ -81,7 +73,7 @@ switch(menuCompra){
 function addProductcart (id){
     var unidad = parseInt(prompt("Ingresa la cantidad de unidades:"));
     const producto = productos.find((item)=>{
-        return item.id == id
+        return item.id == id;
     });
     producto.unidades = unidad;
     producto.subtotal = producto.precio*unidad;
@@ -97,14 +89,14 @@ comprando();
 console.log(carrito);
 
 //funcion mostrar detalles de la compra
-function chart (){
+function cart (){
     //detalle carrito de compras
-    let mensaje2=""
-    let subTotal =0
+    let mensaje2="";
+    let subTotal =0;
     for (let j=0; j<carrito.length;j++){
         mensaje2 += carrito[j].unidades+" "+carrito[j].nombre+"(s)"+" "+"agregados al carrito"+"\n";
         subTotal += carrito[j].subtotal;
-}
+};
 
 
 
@@ -113,31 +105,38 @@ alert(mensaje2+"\n"+"Total Carrito:"+" "+"$"+subTotal);
 
 }
 
-chart();
+cart();
 
 //Funcion Seguir
 
 function seguir(){
     //Calculo del total del carrito
-    const total = carrito.reduce((acumulador, producto) => {
+    let total = carrito.reduce((acumulador, producto) => {
         return acumulador += producto.subtotal;
     }, 0);
+//descuento del 10% al comprar mas de 10000
+    if(total>10000){
+        total -= total*0.1
+    };
     
     console.log(total)
     
     //pregunta seguir comprando
     let yesOrNot = prompt("¿Deseas seguir agregando productos? (s/n)");
+    
 
     if(yesOrNot === "s"){
         comprando();
-        chart();
+        cart();
         seguir();
 
     }else if(yesOrNot==="n"){
         alert(`Total de la compra:$ ${total}`);
-    }
+    }else{
+        seguir();
+    };
 
-}
+};
 seguir();
 
 alert("Muchas Gracias por su compra, vuelva pronto");
